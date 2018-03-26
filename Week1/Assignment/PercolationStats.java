@@ -29,7 +29,7 @@ public class PercolationStats {
         return Double.NaN;
     }
 
-    public static void main(String[] args)        // test client (described below)
+    public static void main(String[] args)        // test client
     {
     }
 }
