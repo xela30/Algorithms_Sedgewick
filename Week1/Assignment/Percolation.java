@@ -18,15 +18,13 @@ public class Percolation {
         opened = new boolean[n * n + 1];
 
         // connect top line to virtual node
-        for (int i = 1; i <= n; i++)
-        {
+        for (int i = 1; i <= n; i++) {
             uf.union(i, 0);
         }
 
         // connect bottom line to virtual node
-        for (int i = n * n - n; i <= n*n; i++)
-        {
-            uf.union(i, n*n + 1);
+        for (int i = n * n - n + 1; i <= n * n; i++) {
+            uf.union(i, n * n + 1);
         }
     }
 
@@ -99,6 +97,6 @@ public class Percolation {
 
     public boolean percolates()              // does the system percolate?
     {
-        return uf.connected(0, N*N + 1);
+        return openSitesCount > 0 && uf.connected(0, N * N + 1);
     }
 }
