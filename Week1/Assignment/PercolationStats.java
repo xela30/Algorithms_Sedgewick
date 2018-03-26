@@ -3,7 +3,6 @@ import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.StdOut;
 
 public class PercolationStats {
-    private final int T;
     private final double mean;
     private final double stddev;
     private final double confidenceLo;
@@ -17,7 +16,6 @@ public class PercolationStats {
         }
 
         x = new double[trials];
-        T = trials;
 
         for (int i = 0; i < trials; i++)
         {
@@ -34,8 +32,8 @@ public class PercolationStats {
 
         mean = StdStats.mean(x);
         stddev = StdStats.stddev(x);
-        confidenceLo = mean - 1.96*stddev/Math.sqrt(T);
-        confidenceHi = mean + 1.96*stddev/Math.sqrt(T);
+        confidenceLo = mean - 1.96*stddev/Math.sqrt(trials);
+        confidenceHi = mean + 1.96*stddev/Math.sqrt(trials);
     }
 
     public double mean()                          // sample mean of percolation threshold
