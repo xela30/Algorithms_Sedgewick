@@ -4,6 +4,7 @@ public class Percolation {
     private int openSitesCount = 0;
     private final int N;
     private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF uf2;
     private boolean[] opened;
 
     public Percolation(int n)                // create n-by-n grid, with all sites blocked
@@ -14,12 +15,14 @@ public class Percolation {
         N = n;
 
         uf = new WeightedQuickUnionUF(n * n + 2);
+        uf2 = new WeightedQuickUnionUF(n * n + 1);
 
         opened = new boolean[n * n + 1];
 
         // connect top line to virtual node
         for (int i = 1; i <= n; i++) {
             uf.union(i, 0);
+            uf2.union(i, 0);
         }
 
         // connect bottom line to virtual node
@@ -41,24 +44,28 @@ public class Percolation {
             if (col > 1) { // left neighbor
                 if (isOpen(row, col - 1)) {
                     uf.union(indice, indice - 1);
+                    uf2.union(indice, indice - 1);
                 }
             }
 
             if (col < N) { // right neighbor
                 if (isOpen(row, col + 1)) {
                     uf.union(indice, indice + 1);
+                    uf2.union(indice, indice + 1);
                 }
             }
 
             if (row > 1) { // top neighbor
                 if (isOpen(row - 1, col)) {
                     uf.union(indice - N, indice);
+                    uf2.union(indice - N, indice);
                 }
             }
 
             if (row < N) { // bottom neighbor
                 if (isOpen(row + 1, col)) {
                     uf.union(indice + N, indice);
+                    uf2.union(indice + N, indice);
                 }
             }
         }
@@ -87,7 +94,7 @@ public class Percolation {
     {
         ValidateCoordinates(row, col);
         int indice = xyTo1D(row, col);
-        return uf.connected(indice, 0) && opened[indice];
+        return uf2.connected(indice, 0) && opened[indice];
     }
 
     public int numberOfOpenSites()       // number of open sites
