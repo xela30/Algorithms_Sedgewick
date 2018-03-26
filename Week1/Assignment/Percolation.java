@@ -101,8 +101,4 @@ public class Percolation {
     {
         return uf.connected(0, N*N + 1);
     }
-
-    public static void main(String[] args)   // test client (optional)
-    {
-    }
 }
