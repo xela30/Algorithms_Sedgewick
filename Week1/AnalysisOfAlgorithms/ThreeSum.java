@@ -8,17 +8,13 @@ public class ThreeSum {
     public ThreeSum(int[] data) {
         this.data = data;
         Arrays.sort(this.data);
-        StdOut.println(data.length);
     }
 
     public void Find(int target) {
-        int iteration = 0;
         for (int i = 0; i < data.length - 2; i++) {
-            iteration++;
             int j = i+1;
             int k = data.length - 1;
             while (j < k) {
-                iteration++;
                 int sum = data[i] + data[j] + data[k];
                 if (sum == target) {
                     StdOut.printf("%d %d %d", data[j], data[k], data[i]);
@@ -32,7 +28,6 @@ public class ThreeSum {
                 }
             }
         }
-        StdOut.println(iteration++);
     }
 
     public static void main(String[] args) {
