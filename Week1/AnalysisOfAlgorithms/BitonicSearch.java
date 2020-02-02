@@ -12,6 +12,12 @@ public class BitonicSearch {
     public void Find(int target) {
         int l = 0;
         int r = data.length - 1;
+
+        if (target < data[l] && target < data[r]) {
+            StdOut.printf("%d doesn't exist.\n", target);
+            return;
+        }
+
         while (l < r) {
             int m_index = (r + l) >>> 1;
             int m = data[m_index];
@@ -19,8 +25,10 @@ public class BitonicSearch {
                 StdOut.println(m_index);
                 return;
             } else if (data[m_index - 1] < m && m > data[m_index + 1]) {
-                if (target > m)
+                if (target > m) {
+                    StdOut.printf("%d doesn't exist.\n", target);
                     return;
+                }
 
                 int x = ascendingBinSearch(data, l, m_index, target);
                 if (x < 0) {
@@ -77,9 +85,12 @@ public class BitonicSearch {
 
     public static void main(String[] args) {
         BitonicSearch bitonicSearch = new BitonicSearch(new int[]{-5, -2, 0, 1, 3, 5, 7, 8, 12, 9, 6, 2, -3});
-        bitonicSearch.Find(-123);
-//        bitonicSearch.Find(-5);
-//        bitonicSearch.Find(-3);
-//        bitonicSearch.Find(12);
+        bitonicSearch.Find(-999);
+        bitonicSearch.Find(999);
+        bitonicSearch.Find(-5);
+        bitonicSearch.Find(-3);
+        bitonicSearch.Find(12);
+        bitonicSearch.Find(0);
+        bitonicSearch.Find(6);
     }
 }
