@@ -60,7 +60,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return q[i];
     }
 
-
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
         return new Iterator<Item>() {
@@ -84,7 +83,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
             @Override
             public boolean hasNext() {
-                return i < items.length - 1;
+                return i < items.length;
             }
 
             @Override
@@ -99,13 +98,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // unit testing (required)
     public static void main(String[] args) {
-        RandomizedQueue<String> queue = new RandomizedQueue<String>();
+        RandomizedQueue<String> queue = new RandomizedQueue<>();
         for (int i = 0; i < 10; i++) {
             queue.enqueue(String.valueOf(i));
         }
         StdOut.printf("size: %s\n", queue.size());
         StdOut.printf("dequeue: %s\n", queue.dequeue());
         StdOut.printf("dequeue: %s\n", queue.dequeue());
+        StdOut.printf("sample: %s\n", queue.sample());
         StdOut.printf("isEmpty: %s\n", queue.isEmpty());
         for (String item : queue) {
             StdOut.printf("item: %s\n", item);
