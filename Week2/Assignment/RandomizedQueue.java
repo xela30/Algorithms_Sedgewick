@@ -1,6 +1,5 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.Iterator;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
@@ -62,19 +61,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
+        RandomizedQueue<Item> items = new RandomizedQueue<>();
+        for (int i = 0; i < size; i++) {
+            items.enqueue(q[i]);
+        }
         return new Iterator<Item>() {
-            private Item[] items = getShuffledCopyOfQueue();
-            private int i = 0;
-
-            private Item[] getShuffledCopyOfQueue() {
-                items = (Item[]) new Object[size];
-                for (int i = 0; i < size; i++) {
-                    items[i] = q[i];
-                }
-                StdRandom.shuffle(items);
-                return items;
-            }
-
 
             @Override
             public void remove() {
@@ -83,13 +74,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
             @Override
             public boolean hasNext() {
-                return i < items.length;
+                return items.size() > 0;
             }
 
             @Override
             public Item next() {
                 if (hasNext()) {
-                    return items[i++];
+                    return items.dequeue();
                 }
                 throw new java.util.NoSuchElementException();
             }
@@ -107,16 +98,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         StdOut.printf("dequeue: %s\n", queue.dequeue());
         StdOut.printf("sample: %s\n", queue.sample());
         StdOut.printf("isEmpty: %s\n", queue.isEmpty());
+        StdOut.printf("size: %s\n", queue.size());
         for (String item : queue) {
-            StdOut.printf("item: %s\n", item);
+            StdOut.printf("%s\n", item);
         }
     }
 
     private void resize(int capacity) {
         Item[] copy = (Item[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            copy[i] = q[i];
-        }
+        System.arraycopy(q, 0, copy, 0, size);
         q = copy;
     }
 }

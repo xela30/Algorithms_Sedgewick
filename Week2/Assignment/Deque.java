@@ -15,8 +15,6 @@ public class Deque<Item> implements Iterable<Item> {
 
     // construct an empty deque
     public Deque() {
-        first = null;
-        last = first;
     }
 
     // is the deque empty?
@@ -46,6 +44,18 @@ public class Deque<Item> implements Iterable<Item> {
         size++;
     }
 
+    // remove and return the item from the back
+    public Item removeLast() {
+        if (isEmpty())
+            throw new java.util.NoSuchElementException();
+        Item item = last.item;
+        last = last.previous;
+        size--;
+        if (isEmpty())
+            first = null;
+        return item;
+    }
+
     // add the item to the back
     public void addLast(Item item) {
         if (item == null) {
@@ -71,20 +81,12 @@ public class Deque<Item> implements Iterable<Item> {
         Item item = first.item;
         first = first.next;
         size--;
-        return item;
-    }
-
-    // remove and return the item from the back
-    public Item removeLast() {
         if (isEmpty())
-            throw new java.util.NoSuchElementException();
-        Item item = last.item;
-        last = last.previous;
-        size--;
+            last = null;
         return item;
     }
 
-    // return an independent iterator over items in random order
+    // return an iterator over items in order from front to back
     public Iterator<Item> iterator() {
         return new Iterator<Item>() {
             private Node<Item> current = first;
