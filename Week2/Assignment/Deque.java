@@ -32,15 +32,17 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException("item");
         }
-        Node<Item> oldFirst = first;
-        first = new Node<>();
-        first.item = item;
-        first.next = oldFirst;
-        if (oldFirst != null) {
-            oldFirst.previous = first;
+
+        Node<Item> newNode = new Node<>();
+        newNode.item = item;
+        if (isEmpty()) {
+            first = last = newNode;
         } else {
-            last = first;
+            newNode.next = first;
+            first.previous = newNode;
+            first = newNode;
         }
+
         size++;
     }
 
@@ -48,11 +50,17 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeLast() {
         if (isEmpty())
             throw new java.util.NoSuchElementException();
+
         Item item = last.item;
-        last = last.previous;
+
+        if (size == 1) {
+            first = last = null;
+        } else {
+            last = last.previous;
+            last.next = null;
+        }
+
         size--;
-        if (isEmpty())
-            first = null;
         return item;
     }
 
@@ -61,15 +69,16 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) {
             throw new IllegalArgumentException("item");
         }
-        Node<Item> oldLast = last;
-        last = new Node<>();
-        last.item = item;
-        last.previous = oldLast;
-        if (oldLast != null) {
-            oldLast.next = last;
+        Node<Item> newNode = new Node<>();
+        newNode.item = item;
+        if (isEmpty()) {
+            first = last = newNode;
         } else {
-            first = last;
+            newNode.previous = last;
+            last.next = newNode;
+            last = newNode;
         }
+
         size++;
     }
 
@@ -79,10 +88,15 @@ public class Deque<Item> implements Iterable<Item> {
             throw new java.util.NoSuchElementException();
 
         Item item = first.item;
-        first = first.next;
+
+        if (size == 1) {
+            first = last = null;
+        } else {
+            first = first.next;
+            first.previous = null;
+        }
+
         size--;
-        if (isEmpty())
-            last = null;
         return item;
     }
 
@@ -118,8 +132,6 @@ public class Deque<Item> implements Iterable<Item> {
         Deque<String> deque = new Deque<>();
         deque.addFirst("first");
         deque.addLast("last");
-        deque.addFirst("first2");
-        deque.addLast("last2");
         for (String item :
                 deque) {
             StdOut.println(item);
