@@ -9,18 +9,15 @@ public class Permutation {
         }
         RandomizedQueue<String> queue = new RandomizedQueue<>();
         int k = Integer.parseInt(args[0]);
-        int i = 0;
-        while (!StdIn.isEmpty()) {
-            String input = StdIn.readString();
-            if (i >= k) {
-                queue.dequeue();
+        if (k > 0) {
+            while (!StdIn.isEmpty()) {
+                String input = StdIn.readString();
+                queue.enqueue(input);
             }
-            queue.enqueue(input);
-            i++;
-        }
 
-        for (String item : queue) {
-            StdOut.println(item);
+            for (int i = 0; i < k; i++) {
+                StdOut.println(queue.dequeue());
+            }
         }
     }
 }
