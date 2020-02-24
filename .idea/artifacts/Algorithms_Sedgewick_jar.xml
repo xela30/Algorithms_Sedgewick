@@ -5,6 +5,7 @@
       <element id="module-output" name="Week1" />
       <element id="module-output" name="Week2" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/algs4.jar" path-in-jar="/" />
+      <element id="module-output" name="Week3" />
     </root>
   </artifact>
 </component>
