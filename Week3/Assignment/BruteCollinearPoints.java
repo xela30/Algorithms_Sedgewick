@@ -10,9 +10,8 @@ public class BruteCollinearPoints {
 
         checkNulls(points);
 
-        checkDuplicatedEntries(points);
-
         Arrays.sort(points);
+        checkDuplicatedEntries(points);
 
         _segments = new LineSegment[points.length];
 
@@ -24,12 +23,23 @@ public class BruteCollinearPoints {
                         double slope_pr = points[p].slopeTo(points[r]);
                         double slope_ps = points[p].slopeTo(points[s]);
                         if (slope_pq == slope_pr && slope_pq == slope_ps) {
+                            if (_segmentsCount == _segments.length) {
+                                resize();
+                            }
+                            Point[] tuple = new Point[] {points[p], points[q], points[r], points[s]};
+                            Arrays.sort(tuple);
                             _segments[_segmentsCount++] = new LineSegment(points[p], points[s]);
                         }
                     }
                 }
             }
         }
+    }
+
+    private void resize() {
+        LineSegment[] copy = new LineSegment[_segments.length * 2];
+        System.arraycopy(_segments, 0, copy, 0, _segmentsCount);
+        _segments = copy;
     }
 
 
@@ -40,7 +50,7 @@ public class BruteCollinearPoints {
 
     // the line segments
     public LineSegment[] segments() {
-        return Arrays.copyOf(_segments, _segmentsCount);
+        return Arrays.copyOf(_segments, _segmentsCount - 1);
     }
 
     private void checkDuplicatedEntries(Point[] points) {
@@ -58,7 +68,7 @@ public class BruteCollinearPoints {
             throw new IllegalArgumentException("Points collection is null");
 
         for (int i = 0; i < points.length; i++) {
-            if (points[i] == null || (points[i] == points[i + 1] && i < points.length - 1)) {
+            if (points[i] == null || (i < points.length - 1 && points[i] == points[i + 1])) {
                 throw new IllegalArgumentException("Points collection contains null elements.");
             }
         }
