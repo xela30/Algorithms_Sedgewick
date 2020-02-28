@@ -26,8 +26,6 @@ public class BruteCollinearPoints {
                             if (_segmentsCount == _segments.length) {
                                 resize();
                             }
-                            Point[] tuple = new Point[] {points[p], points[q], points[r], points[s]};
-                            Arrays.sort(tuple);
                             _segments[_segmentsCount++] = new LineSegment(points[p], points[s]);
                         }
                     }
@@ -50,7 +48,7 @@ public class BruteCollinearPoints {
 
     // the line segments
     public LineSegment[] segments() {
-        return Arrays.copyOf(_segments, _segmentsCount - 1);
+        return Arrays.copyOf(_segments, _segmentsCount);
     }
 
     private void checkDuplicatedEntries(Point[] points) {

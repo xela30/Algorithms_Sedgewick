@@ -36,7 +36,9 @@ public class Point implements Comparable<Point> {
      */
     public void draw() {
         /* DO NOT MODIFY */
+        //StdDraw.point(x, y);
         StdDraw.circle(x, y, 500);
+        //StdDraw.text(x, y + 1000, toString());
     }
 
     /**
@@ -65,16 +67,17 @@ public class Point implements Comparable<Point> {
         if (that == null)
             throw new IllegalArgumentException("that");
 
+        if (that.compareTo(this) == 0)
+            return Double.NEGATIVE_INFINITY;
+
         if (that.y == y)
             return +0.0;
 
         if (that.x == x)
             return Double.POSITIVE_INFINITY;
 
-        if (that.compareTo(this) == 0)
-            return Double.NEGATIVE_INFINITY;
 
-        return (that.y - y) / (that.x - x);
+        return (that.y - y) / (double)(that.x - x);
     }
 
     /**
