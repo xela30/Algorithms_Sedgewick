@@ -36,8 +36,9 @@ public class FastCollinearPoints {
                     if (_segmentsCount == _segments.length) {
                         resize();
                     }
-
-                    _segments[_segmentsCount++] = new LineSegment(collinearPoints[0], collinearPoints[collinearPoints.length - 1]);
+                    if (aux[0].compareTo(collinearPoints[0]) == 0) {
+                        _segments[_segmentsCount++] = new LineSegment(collinearPoints[0], collinearPoints[collinearPoints.length - 1]);
+                    }
                 }
                 head = 0;
                 tail = 0;
