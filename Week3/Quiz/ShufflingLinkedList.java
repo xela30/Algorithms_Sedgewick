@@ -50,7 +50,7 @@ public class ShufflingLinkedList {
             } else {
                 boolean obverse = flipCoin();
                 Node<Integer> winner = obverse ? leftHead : rightHead;
-                addToShuffled(winner);
+                addToShuffled(winner); // TODO: BUG: duplicates being added. Consider swapping instead of building up new list from the ground.
             }
             leftHead = leftHead.next;
             rightHead = rightHead.next;
