@@ -10,9 +10,7 @@
 
 import java.util.Comparator;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import edu.princeton.cs.algs4.StdDraw;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Point implements Comparable<Point> {
 
@@ -65,7 +63,7 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         if (that == null)
-            throw new IllegalArgumentException("that");
+            throw new java.lang.NullPointerException("that");
 
         if (that.compareTo(this) == 0)
             return Double.NEGATIVE_INFINITY;
@@ -94,7 +92,7 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         if (that == null)
-            throw new IllegalArgumentException("that");
+            throw new java.lang.NullPointerException("that");
 
         if (y == that.y && x == that.x)
             return 0;
@@ -132,7 +130,6 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        throw new NotImplementedException();
     }
 
     private class BySlopeComparator implements Comparator<Point> {
@@ -142,7 +139,7 @@ public class Point implements Comparable<Point> {
         public BySlopeComparator(Point invokingPoint) {
 
             if (invokingPoint == null)
-                throw new IllegalArgumentException("invokingPoint");
+                throw new java.lang.NullPointerException("invokingPoint");
 
             _invokingPoint = invokingPoint;
         }
@@ -150,9 +147,9 @@ public class Point implements Comparable<Point> {
         @Override
         public int compare(Point point1, Point point2) {
             if (point1 == null)
-                throw new IllegalArgumentException("point1");
+                throw new java.lang.NullPointerException("point1");
             if (point2 == null)
-                throw new IllegalArgumentException("point2");
+                throw new java.lang.NullPointerException("point2");
 
             if (_invokingPoint.slopeTo(point1) < _invokingPoint.slopeTo(point2)) {
                 return -1;

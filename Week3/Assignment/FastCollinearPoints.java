@@ -2,10 +2,15 @@ import java.util.Arrays;
 
 public class FastCollinearPoints {
     private LineSegment[] _segments = new LineSegment[1];
-    int _segmentsCount = 0;
+    private int _segmentsCount = 0;
 
     // finds all line segments containing 4 or more points
-    public FastCollinearPoints(Point[] points) {
+    public FastCollinearPoints(Point[] arg) {
+        if (arg == null)
+            throw new IllegalArgumentException("arg");
+
+        Point[] points = Arrays.copyOf(arg, arg.length);
+
         checkNulls(points);
 
         Arrays.sort(points);

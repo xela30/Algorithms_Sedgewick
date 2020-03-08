@@ -1,6 +1,8 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
+// This one is based on one-time random merging thus obviously doesn't shuffle uniformly.
+// Seems to be similar to https://web.stanford.edu/class/cs9/sample_probs/ListShuffling.pdf
 public class ShufflingLinkedList {
 
     private static int n = 8;
@@ -13,8 +15,6 @@ public class ShufflingLinkedList {
             node.next = new Node<>(i);
             node = node.next;
         }
-
-        //PrintNodes(first);
 
         shuffle(first);
 
@@ -35,25 +35,30 @@ public class ShufflingLinkedList {
         Node<Integer> middle = getMiddle(node);
         Node<Integer> rightHead = middle.next;
         middle.next = null;
+
         if (rightHead == null) {
             return;
         }
 
-        shuffle(leftHead);
-        shuffle(rightHead);
-
         while (leftHead != null || rightHead != null) {
             if (leftHead == null) {
                 addToShuffled(rightHead);
+                rightHead = rightHead.next;
             } else if (rightHead == null) {
                 addToShuffled(leftHead);
+                leftHead = leftHead.next;
             } else {
                 boolean obverse = flipCoin();
-                Node<Integer> winner = obverse ? leftHead : rightHead;
-                addToShuffled(winner); // TODO: BUG: duplicates being added. Consider swapping instead of building up new list from the ground.
+                Node<Integer> winner;
+                if (obverse) {
+                    winner = leftHead;
+                    leftHead = leftHead.next;
+                } else {
+                    winner = rightHead;
+                    rightHead = rightHead.next;
+                }
+                addToShuffled(winner);
             }
-            leftHead = leftHead.next;
-            rightHead = rightHead.next;
         }
     }
 
