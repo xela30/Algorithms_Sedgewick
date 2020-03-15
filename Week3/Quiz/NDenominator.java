@@ -2,6 +2,10 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import java.util.ArrayList;
 
+// Quiz Question #3
+// Decimal dominants.
+// Given an array with n keys, design an algorithm to find all values that occur more than n/10 times.
+// The expected running time of your algorithm should be linear.
 public class NDenominator {
     public static void main(String[] args) {
         int size = 30;
