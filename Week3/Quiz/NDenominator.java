@@ -8,9 +8,9 @@ import java.util.ArrayList;
 // The expected running time of your algorithm should be linear.
 public class NDenominator {
     public static void main(String[] args) {
-        int size = 30;
+        int size = 10;
         Integer[] a = new Integer[size];
-        int denominator = 6;
+        int denominator = 2;
 
         for (int i = 0; i < size; i++) {
             a[i] = StdRandom.uniform(0, denominator);
@@ -25,7 +25,7 @@ public class NDenominator {
 
         StdOut.println();
 
-        ArrayList<Comparable> result = find(a, 5);
+        ArrayList<Comparable> result = find(a, denominator);
 
         for (Comparable item : result) {
             StdOut.print(item);
@@ -62,7 +62,7 @@ public class NDenominator {
                     lo = gt + 1;
                 } else if (lt > k) {
                     hi = lt - 1;
-                } else if (gt - lt >= denominator) {
+                } else if (gt - lt >= a.length/denominator) {
                     result.add(a[lt]);
                     break;
                 } else {
